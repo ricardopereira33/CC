@@ -1,32 +1,40 @@
 import java.io.*;
 import java.net.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
-public class Monitor {
+public class Monitor extends Thread{
+	private DatagramSocket socket;
+	private int port;
+	
+	public Monitor(int port){
+		this.port=port;
+	}
 
-	static public void main (String[] args){
-		int PORT = 5555;
-		byte[] buf = new byte[1024];
-		DatagramPacket packet = new DatagramPacket(buf,buf.length);
-		DatagramSocket socket;
+	public void run (){
+		
+		byte[] buffer = new byte[512];
+		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
+
 		try{
-
-			socket = new DatagramSocket(PORT);
-
-			System.out.println("Server stared");
+			this.socket = new DatagramSocket(port);
+			System.out.println("Monitor stared");
 
 			while(true){
-				socket.receive(packet);
-				String rcvd = new String(packet.getData(),0,packet.getLength()) + ", from address: " 
-					+ packet.getAddress() + ", port: " + packet.getPort();
-				System.out.println(rcvd);
-
 				BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-				String outMessage = stdin.readLine();
-				buf = ("Server say: " + outMessage).getBytes();
-				DatagramPacket out = new DatagramPacket(buf,buf.length,packet.getAddress(),packet.getPort());
-				socket.send(out);
+				String msg = stdin.readLine();
+				buffer = msg.getBytes();
+				
+				//endereço do servidor
+				InetAddress addr = InetAddress.getByName("127.0.0.1");
+				DatagramPacket out = new DatagramPacket(buffer, buffer.length, addr, 5555);
+				this.socket.send(out);
+
+				//receber pacote
+				this.socket.receive(packet);
+				String info = new String(packet.getData(),0,packet.getLength()) + 
+										", from address: " + packet.getAddress() + 
+										", port: " + packet.getPort();
+				
+				System.out.println(info);
 			}
 		}
 		catch(Exception e){
