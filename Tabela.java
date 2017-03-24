@@ -23,5 +23,9 @@ public class Tabela{
     public int size(){
     	return servers.size();
     }
+	
 
+	public Map<InetAddress,ServerInfo> lista(){
+		return servers;
+	}
 }

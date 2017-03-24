@@ -2,6 +2,8 @@ import java.lang.Thread;
 import java.util.Random;
 import java.io.*;
 import java.net.*;
+import java.util.Map;
+import java.util.HashMap;
 
 public class RPThread extends Thread {
 	private DatagramSocket socket;
@@ -41,11 +43,20 @@ public class RPThread extends Thread {
 				DatagramPacket out = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort());
 				socket.send(out);
 			}
-			System.out.println("tam : "tab.size());
-			for(int i=0; i<tab.size(); i++){
-				ServerInfo si = tab.getServerInfo(i);
-				System.out.println("Endereço: " + si.getEndIp() +"\nPorta: " + si.getPort() +"\nRTT: "+ si.getRtt() + "\nTaxa: " + si.getTaxPacLost() +"\nNumCont: " + si.getNumConnect() );
+			Map<InetAddress,ServerInfo> lista = tab.lista();
+			for(Map.Entry<InetAddress,ServerInfo> entry: lista.entrySet()){
+				
+				ServerInfo si = entry.getValue();
+
+				if(si==null) System.out.println("Cenas");
+	
+				System.out.println("Endereço: " + si.getEndIp() +
+						 "\nPorta: " + si.getPort() +
+						 "\nRTT: "+ si.getRtt() + 
+					         "\nTaxa: " + si.getTaxPacLost() +
+						 "\nNumCont: " + si.getNumConnect() );
 			}
+
 		}
 		catch(Exception e){
 			System.out.println("Erro");
