@@ -32,7 +32,7 @@ public class RPThread extends Thread {
 				*/
 				System.out.println(info);
 
-				if(info.equlas("1")) break;
+				if(info.equals("1")) break;
 				//registar servidor
 				ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
 				tab.setServerInfo(si);
@@ -44,7 +44,7 @@ public class RPThread extends Thread {
 
 			for(int i=0; i<tab.size(); i++){
 				ServerInfo si = tab.getServerInfo(i);
-				System.out.println("Endereço: " + si.getEndIP() +"\nPorta: " + si.getPort() +"\nRTT: "+ si.getRtt() + "\nTaxa: " + si.getTaxPacLost() +"\nNumCont: " + si.getNumConnect() );
+				System.out.println("Endereço: " + si.getEndIp() +"\nPorta: " + si.getPort() +"\nRTT: "+ si.getRtt() + "\nTaxa: " + si.getTaxPacLost() +"\nNumCont: " + si.getNumConnect() );
 			}
 		}
 		catch(Exception e){
