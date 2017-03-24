@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Tabela{
-	private Map<Integer,ServerInfo> servers;
+	private Map<InetAddress,ServerInfo> servers;
 
 	public Tabela(){
 		this.servers = new HashMap<>();
@@ -17,7 +17,7 @@ public class Tabela{
 	}
     
     public synchronized void setServerInfo(ServerInfo si){
-    	this.servers.put(this.servers.size(),si);
+    	this.servers.put(si.getInetAddress(),si);
     }
 
     public int size(){
