@@ -3,7 +3,7 @@ import java.net.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class ServerInfo{
+public class ServerInfo implements Serializable{
 	private InetAddress endIP;
     private int port;
 	private float rtt;

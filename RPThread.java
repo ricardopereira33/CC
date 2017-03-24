@@ -14,6 +14,22 @@ public class RPThread extends Thread {
 		this.tab = tab;
 	}
 
+	private byte[] converteByte(PacoteMonitor pm){
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutput out = null;
+		byte[] data = null;
+		try {
+  			out = new ObjectOutputStream(bos);   
+  			out.writeObject(pm);
+  			out.flush();
+  			data = bos.toByteArray();
+		} 
+		catch (Exception ex) {
+			System.out.println("converteByteErro");
+		}
+		return data;
+	} 
+
 	public void run(){
 		byte[] buffer = new byte[512];	
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
@@ -43,6 +59,9 @@ public class RPThread extends Thread {
 				DatagramPacket out = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort());
 				socket.send(out);
 			}
+
+
+
 			Map<InetAddress,ServerInfo> lista = tab.lista();
 			for(Map.Entry<InetAddress,ServerInfo> entry: lista.entrySet()){
 				
