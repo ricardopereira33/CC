@@ -20,4 +20,8 @@ public class Tabela{
     	this.servers.put(this.servers.size(),si);
     }
 
+    public int size(){
+    	return servers.size();
+    }
+
 }

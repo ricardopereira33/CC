@@ -22,14 +22,17 @@ public class RPThread extends Thread {
 			System.out.println("Server stared");
 
 			while(true){
+
 				//receber pacotes
 				socket.receive(packet);
-				String info = new String(packet.getData(),0,packet.getLength()) + 
+				String info = new String(packet.getData(),0,packet.getLength());
+				/* + 
 								         ", from address: " + packet.getAddress() + 
 								         ", port: " + packet.getPort();
-
+				*/
 				System.out.println(info);
 
+				if(info.equals("1")) break;
 				//registar servidor
 				ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
 				tab.setServerInfo(si);
@@ -37,6 +40,11 @@ public class RPThread extends Thread {
 
 				DatagramPacket out = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort());
 				socket.send(out);
+			}
+
+			for(int i=0; i<tab.size(); i++){
+				ServerInfo si = tab.getServerInfo(i);
+				System.out.println("Endereço: " + si.getEndIp() +"\nPorta: " + si.getPort() +"\nRTT: "+ si.getRtt() + "\nTaxa: " + si.getTaxPacLost() +"\nNumCont: " + si.getNumConnect() );
 			}
 		}
 		catch(Exception e){
