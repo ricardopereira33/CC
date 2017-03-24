@@ -41,7 +41,7 @@ public class RPThread extends Thread {
 				DatagramPacket out = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort());
 				socket.send(out);
 			}
-
+			System.out.println("tam : "tab.size());
 			for(int i=0; i<tab.size(); i++){
 				ServerInfo si = tab.getServerInfo(i);
 				System.out.println("Endereço: " + si.getEndIp() +"\nPorta: " + si.getPort() +"\nRTT: "+ si.getRtt() + "\nTaxa: " + si.getTaxPacLost() +"\nNumCont: " + si.getNumConnect() );
