@@ -17,7 +17,7 @@ public class Tabela{
 	}
     
     public synchronized void setServerInfo(ServerInfo si){
-    	this.servers.put(si.getInetAddress(),si);
+    	this.servers.put(si.getEndIp(),si);
     }
 
     public int size(){
