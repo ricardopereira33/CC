@@ -12,8 +12,8 @@ public class ReverseProxy{
 		
 		try{
 			//iniciar thread de monitorizacao dos servidores
-			//Tabela tab = new Tabela();
-			RPThread t = new RPThread();
+			Tabela tab = new Tabela();
+			RPThread t = new RPThread(tab);
 			t.start();
 
 			t.join();

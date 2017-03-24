@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Tabela{
 	private Map<Integer,ServerInfo> servers;
@@ -15,6 +17,7 @@ public class Tabela{
 	}
     
     public synchronized void setServerInfo(ServerInfo si){
-    	this.servers().put(this.servers.size(),si);
+    	this.servers.put(this.servers.size(),si);
     }
+
 }

@@ -5,11 +5,11 @@ import java.net.*;
 
 public class RPThread extends Thread {
 	private DatagramSocket socket;
-	//private Tabela tab;
+	private Tabela tab;
 
 
-	public RPThread (){
-		//this.tab = tab;
+	public RPThread (Tabela tab){
+		this.tab = tab;
 	}
 
 	public void run(){
@@ -30,6 +30,11 @@ public class RPThread extends Thread {
 
 				System.out.println(info);
 
+				//registar servidor
+				ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
+				tab.setServerInfo(si);
+
+
 				DatagramPacket out = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort());
 				socket.send(out);
 			}
@@ -38,5 +43,4 @@ public class RPThread extends Thread {
 			System.out.println("Erro");
 		}
 	}	
-
 }

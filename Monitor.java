@@ -5,8 +5,8 @@ public class Monitor extends Thread{
 	private DatagramSocket socket;
 	private int port;
 	
-	public Monitor(int port){
-		this.port=port;
+	public Monitor(){
+		this.port=5555;
 	}
 
 	public void run (){
@@ -24,7 +24,7 @@ public class Monitor extends Thread{
 				buffer = msg.getBytes();
 				
 				//endereço do servidor
-				InetAddress addr = InetAddress.getByName("127.0.0.1");
+				InetAddress addr = InetAddress.getByName("10.0.2.10");
 				DatagramPacket out = new DatagramPacket(buffer, buffer.length, addr, 5555);
 				this.socket.send(out);
 

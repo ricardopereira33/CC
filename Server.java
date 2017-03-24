@@ -5,7 +5,7 @@ public class Server{
 
 	public static void main (String args[]){
 		try{
-			Monitor m = new Monitor(Integer.parseInt(args[0]));
+			Monitor m = new Monitor();
 			m.start();
 
 			m.join();

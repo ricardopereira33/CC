@@ -7,16 +7,17 @@ public class pacoteMonitor{
 	private int numPacote;
 	private float tempSaida;
 	private String tipo;
-	private String endIP;
+	private InetAddress endIP;
+    private int porta;
 
-	public pacoteMonitor(int numPacote, float tempSaida, String tipo, String endIP){
+	public pacoteMonitor(int numPacote, float tempSaida, String tipo, InetAddress endIP, int porta){
 		this.numPacote = numPacote;
 		this.tempSaida = tempSaida;
 		this.tipo = tipo;
 		this.endIP = endIP;
 	}
 
-    public pacoteMonitor(byte[] data){
+    /*public pacoteMonitor(byte[] data){
         ByteBuffer bb = ByteBuffer.wrap(data);
         bb.order(ByteOrder.BIG_ENDIAN); // or LITTLE_ENDIAN
 
@@ -24,7 +25,7 @@ public class pacoteMonitor{
         this.tempSaida = bb.getFloat();
         this.tipo = bb.getString();
         this.endIP = bb.getString();
-    }
+    }*/
 
 	public int getNumPacote(){
 		return numPacote;
@@ -50,11 +51,11 @@ public class pacoteMonitor{
         this.tipo = tipo;
     }
 
-    public String getEndIP() {
+    public InetAddress getEndIP() {
         return endIP;
     }
 
-    public void setEndIP(String endIP) {
+    public void setEndIP(InetAddress endIP) {
         this.endIP = endIP;
     }
 
