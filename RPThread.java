@@ -24,49 +24,8 @@ public class RPThread extends Thread {
 		si.setRtt(newRtt);
 	}
 
-	public void run(){
-		byte[] buffer = new byte[512];	
-		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
-		int i=0;
-		try{
-			this.socket = new DatagramSocket(5555);
-			
-			System.out.println("Server stared");
-
-			while(true){
-				if(i==0){
-				//receber pacotes
-				socket.receive(packet);
-				String info = new String(packet.getData(),0,packet.getLength());
-				/* + 
-								         ", from address: " + packet.getAddress() + 
-								         ", port: " + packet.getPort();
-				*/
-				System.out.println(info);
-
-				if(info.equals("1")) break;
-				//registar servidor
-				ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
-				tab.setServerInfo(si);
-				i++;
-				}
-
-				PacoteMonitor pm = new PacoteMonitor(1,"cenas",packet.getAddress(),packet.getPort());
-				byte[] buf = pm.converteByte();
-
-				DatagramPacket out = new DatagramPacket(buf, buf.length, packet.getAddress(), packet.getPort());
-				socket.send(out);
-
-				this.socket.receive(packet);
-				
-				PacoteMonitor pm2 = new PacoteMonitor(packet.getData());
-
-				updateServerInfo(pm2,packet.getAddress(),packet.getPort());
-			}
-
-
-
-			Map<InetAddress,ServerInfo> lista = tab.lista();
+	private void print(){
+		Map<InetAddress,ServerInfo> lista = tab.lista();
 			for(Map.Entry<InetAddress,ServerInfo> entry: lista.entrySet()){
 				
 				ServerInfo si = entry.getValue();
@@ -79,6 +38,49 @@ public class RPThread extends Thread {
 					         "\nTaxa: " + si.getTaxPacLost() +
 						 "\nNumCont: " + si.getNumConnect() );
 			}
+	}
+
+	public void run(){
+		byte[] buffer = new byte[512];	
+		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
+		int i=0;
+		try{
+			this.socket = new DatagramSocket(5555);
+			
+			System.out.println("Server stared");
+
+			while(true){
+				//receber pacotes
+				socket.receive(packet);
+				String info = new String(packet.getData(),0,packet.getLength());
+				System.out.println(info);
+
+				//sair do ciclo
+				if(info.equals("1")) break;
+				
+				//registar servidor
+				ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
+				tab.setServerInfo(si);
+
+				//enviar pacoteMonitor
+				PacoteMonitor pm = new PacoteMonitor(1,"cenas",packet.getAddress(),packet.getPort());
+				byte[] buf = pm.converteByte();
+
+				DatagramPacket out = new DatagramPacket(buf, buf.length, packet.getAddress(), packet.getPort());
+				socket.send(out);
+
+				//receber pacoteMonitor
+				this.socket.receive(packet);
+				
+				PacoteMonitor pm2 = new PacoteMonitor(packet.getData());
+
+				//actualizar info do respectivo servidor
+				updateServerInfo(pm2,packet.getAddress(),packet.getPort());
+			}
+
+
+			//print das infos de cada servidor
+			print();
 
 		}
 		catch(Exception e){

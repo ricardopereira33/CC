@@ -4,6 +4,7 @@ import java.net.*;
 public class Monitor extends Thread{
 	private DatagramSocket socket;
 	private int port;
+	private InetAddress addr = InetAddress.getByName("10.0.2.10");
 	
 	public Monitor(){
 		this.port=5555;
@@ -19,27 +20,22 @@ public class Monitor extends Thread{
 			System.out.println("Monitor stared");
 
 			while(true){
-				if(i==0){
-					BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-					String msg = stdin.readLine();
-					buffer = msg.getBytes();
+				//enviar algo escrito do teclado
+				BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+				String msg = stdin.readLine();
+				buffer = msg.getBytes();
 				
-					//endereço do servidor
-					InetAddress addr = InetAddress.getByName("10.0.2.10");
-					DatagramPacket out = new DatagramPacket(buffer, buffer.length, addr, 5555);
-					this.socket.send(out);
-					i++;
-				}
-					//receber pacote
-					this.socket.receive(packet);
-					/*String info = new String(packet.getData(),0,packet.getLength()) + 
-										", from address: " + packet.getAddress() + 
-										", port: " + packet.getPort();*/
+				//endereço do servidor e enviar pacote
+				DatagramPacket out = new DatagramPacket(buffer, buffer.length, addr, 5555);
+				this.socket.send(out);
 
+				//receber pacoteMonitor
+				this.socket.receive(packet);
 				PacoteMonitor pm = new PacoteMonitor(packet.getData());
 
 				pm.print();
 
+				//enviar pacoteMonitor
 				PacoteMonitor pm2 = new PacoteMonitor(1,"cenas",packet.getAddress(),packet.getPort());
 				pm2.setTempSaida(pm.getTempSaida());
 				byte[] buf = pm2.converteByte();
