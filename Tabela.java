@@ -12,7 +12,7 @@ public class Tabela{
 		this.servers = new HashMap<>();
 	}
 
-	public synchronized ServerInfo getServerInfo(int id){
+	public synchronized ServerInfo getServerInfo(InetAddress id){
 		return servers.get(id);
 	}
     

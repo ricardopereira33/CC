@@ -5,14 +5,14 @@ import java.io.InputStreamReader;
 
 public class PacoteMonitor implements Serializable{
 	private int numPacote;
-	private float tempSaida;
+	private long tempSaida;
 	private String tipo;
 	private InetAddress endIP;
     private int porta;
 
-	public PacoteMonitor(int numPacote, float tempSaida, String tipo, InetAddress endIP, int porta){
+	public PacoteMonitor(int numPacote, String tipo, InetAddress endIP, int porta){
 		this.numPacote = numPacote;
-		this.tempSaida = tempSaida;
+		this.tempSaida = System.currentTimeMillis();
 		this.tipo = tipo;
 		this.endIP = endIP;
         this.porta = porta;
@@ -39,6 +39,22 @@ public class PacoteMonitor implements Serializable{
         }
     }
 
+    public byte[] converteByte(){
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
+        byte[] data = null;
+        try {
+            out = new ObjectOutputStream(bos);   
+            out.writeObject(this);
+            out.flush();
+            data = bos.toByteArray();
+        } 
+        catch (Exception ex) {
+            System.out.println("converteByteErro");
+        }
+        return data;
+    } 
+
     public void print(){
         System.out.println("numPac : "+this.numPacote+"\n");
         System.out.println("tempSaida : "+this.tempSaida+"\n");
@@ -55,11 +71,11 @@ public class PacoteMonitor implements Serializable{
         this.numPacote = numPacote;
     }
 
-    public float getTempSaida() {
+    public long getTempSaida() {
         return tempSaida;
     }
 
-    public void setTempSaida(float tempSaida) {
+    public void setTempSaida(long tempSaida) {
         this.tempSaida = tempSaida;
     }
 
