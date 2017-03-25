@@ -4,7 +4,7 @@ import java.net.*;
 public class Monitor extends Thread{
 	private DatagramSocket socket;
 	private int port;
-	private InetAddress addr = InetAddress.getByName("10.0.2.10");
+	private InetAddress addr;
 	
 	public Monitor(){
 		this.port=5555;
@@ -16,6 +16,7 @@ public class Monitor extends Thread{
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		int i =0;
 		try{
+			addr = InetAddress.getByName("10.0.2.10");
 			this.socket = new DatagramSocket(port);
 			System.out.println("Monitor stared");
 
@@ -40,7 +41,7 @@ public class Monitor extends Thread{
 				pm2.setTempSaida(pm.getTempSaida());
 				byte[] buf = pm2.converteByte();
 				
-				DatagramPacket out = new DatagramPacket(buf, buf.length, packet.getAddress(),packet.getPort());
+				out = new DatagramPacket(buf, buf.length, packet.getAddress(),packet.getPort());
 				this.socket.send(out);
 				//System.out.println(info);
 			}
