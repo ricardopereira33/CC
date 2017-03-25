@@ -52,11 +52,13 @@ public class RPThread extends Thread {
 
 				if(info.equals("1")) break;
 				//registar servidor
-				ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
-				tab.setServerInfo(si);
+				/*ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
+				tab.setServerInfo(si);*/
 
+				PacoteMonitor pm = new PacoteMonitor(1,1.5f,"cenas",packet.getAddress(),packet.getPort());
+				byte[] buf = converteByte(pm);
 
-				DatagramPacket out = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort());
+				DatagramPacket out = new DatagramPacket(buf, buf.length, packet.getAddress(), packet.getPort());
 				socket.send(out);
 			}
 

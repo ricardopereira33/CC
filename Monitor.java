@@ -30,11 +30,15 @@ public class Monitor extends Thread{
 
 				//receber pacote
 				this.socket.receive(packet);
-				String info = new String(packet.getData(),0,packet.getLength()) + 
+				/*String info = new String(packet.getData(),0,packet.getLength()) + 
 										", from address: " + packet.getAddress() + 
-										", port: " + packet.getPort();
+										", port: " + packet.getPort();*/
+
+				PacoteMonitor pm = new PacoteMonitor(packet.getData());
+
+				pm.print();
 				
-				System.out.println(info);
+				//System.out.println(info);
 			}
 		}
 		catch(Exception e){

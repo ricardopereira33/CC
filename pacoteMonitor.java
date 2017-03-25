@@ -39,6 +39,14 @@ public class PacoteMonitor implements Serializable{
         }
     }
 
+    public void print(){
+        System.out.println("numPac : "+this.numPacote+"\n");
+        System.out.println("tempSaida : "+this.tempSaida+"\n");
+        System.out.println("tipo : "+this.tipo+"\n");
+        System.out.println("endIP : "+this.endIP+"\n");
+        System.out.println("porta : "+this.porta+"\n");
+    }
+
 	public int getNumPacote(){
 		return numPacote;
 	}
