@@ -1,5 +1,3 @@
-package Server;
-
 import java.io.*;
 import java.net.*;
 
@@ -18,9 +16,10 @@ public class MonitorThread extends Thread{
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		int i =0;
 		try{
-			while(1){
-				if(disponivel==1) //send packet
+			while(true){
+				//if(disponivel==1) send packet
 				//else faz nada
+				i++;
 			}
 		}
 		catch(Exception e){
