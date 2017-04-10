@@ -1,13 +1,9 @@
-package ReverseProxy;
-
 import java.lang.Thread;
 import java.util.Random;
 import java.io.*;
 import java.net.*;
 import java.util.Map;
 import java.util.HashMap;
-
-import Package.PacoteMonitor;
 
 public class RPThread extends Thread {
 	private DatagramSocket socket;

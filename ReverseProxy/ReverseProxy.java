@@ -1,5 +1,3 @@
-package ReverseProxy;
-
 import java.lang.Thread;
 import java.util.Random;
 import java.io.*;
@@ -8,7 +6,6 @@ import java.net.*;
 public class ReverseProxy{
 	ServerSocket server;
 	Socket c = null;
-
 
 	public static void main(String args[]){
 		
