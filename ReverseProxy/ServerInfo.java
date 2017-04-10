@@ -9,13 +9,15 @@ public class ServerInfo implements Serializable{
 	private float rtt;
 	private float taxPacLost;
 	private int numConnect;
+    private boolean available;
 
-	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect){
+	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available){
 	   this.endIP = endIP;
        this.port = port;
        this.rtt = rtt;
        this.taxPacLost = taxPacLost;
        this.numConnect = numConnect;
+       this.available = available;
 	}
 
     public InetAddress getEndIp(){
@@ -56,5 +58,13 @@ public class ServerInfo implements Serializable{
 
     public void setNumConnect(int numConnect){
         this.numConnect = numConnect;
+    }
+
+    public boolean getAvailable(){
+        return available;
+    }
+
+    public void setAvailable(boolean available){
+        this.available = available;
     }
 }

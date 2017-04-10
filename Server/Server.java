@@ -5,9 +5,12 @@ public class Server{
 
 	public static void main (String args[]){
 		try{
+			ServerStatus ss = new ServerStatus();
 			//iniciar o monitor do Servidor
-			Monitor m = new Monitor();
+			Monitor m = new Monitor(ss,3);
 			m.start();
+
+			//Faz seu trabalho
 
 			m.join();
 		}

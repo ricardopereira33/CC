@@ -5,9 +5,12 @@ public class MonitorThread extends Thread{
 	private DatagramSocket socket;
 	private int port;
 	private InetAddress addr;
-	
-	public MonitorThread(){
+	private ServerStatus ss;
+	private int time; //segundos
+
+	public MonitorThread(ServerStatus ss, int time){
 		this.port=5555;
+		this.ss = ss;
 	}
 
 	public void run (){
@@ -16,10 +19,23 @@ public class MonitorThread extends Thread{
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		int i =0;
 		try{
+			addr = InetAddress.getByName("10.0.2.10");
+			this.socket = new DatagramSocket(port);
+
 			while(true){
-				//if(disponivel==1) send packet
-				//else faz nada
-				i++;
+				if(ss.getDisp()){
+					PacoteMonitor pm = new PacoteMonitor(-1,"available",packet.getAddress(),packet.getPort());
+					byte[] buf = pm.converteByte();
+				
+					//endereço do servidor e enviar pacote
+					DatagramPacket out = new DatagramPacket(buf, buf.length, addr, 5555);
+					this.socket.send(out);
+					Thread.sleep(this.time*1000);
+				} 
+				else {
+					Thread.sleep(this.time*1000);
+					System.out.println("Morri");
+				}
 			}
 		}
 		catch(Exception e){

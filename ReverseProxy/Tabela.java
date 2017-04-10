@@ -12,6 +12,10 @@ public class Tabela{
 		this.servers = new HashMap<>();
 	}
 
+	public synchronized boolean contains(InetAddress ip){
+		return servers.containsKey(ip);
+	}
+
 	public synchronized ServerInfo getServerInfo(InetAddress id){
 		return servers.get(id);
 	}
@@ -23,7 +27,6 @@ public class Tabela{
     public int size(){
     	return servers.size();
     }
-	
 
 	public Map<InetAddress,ServerInfo> lista(){
 		return servers;

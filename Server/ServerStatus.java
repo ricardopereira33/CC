@@ -4,10 +4,17 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class ServerStatus{
-	private InetAddress endIP;
-    private int port;
-	private float rtt;
-	private float taxPacLost;
-	private int numConnect;
+	private boolean disponivel;
 
+	public ServerStatus(){
+		this.disponivel = true;
+	}
+
+	public synchronized boolean getDisp(){
+		return this.disponivel;
+	}
+
+	public synchronized void setDisp(boolean d){
+		this.disponivel = d;
+	}
 }

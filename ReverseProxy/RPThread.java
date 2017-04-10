@@ -43,41 +43,45 @@ public class RPThread extends Thread {
 	public void run(){
 		byte[] buffer = new byte[512];	
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
-		int i=0;
+		boolean exist = false;
 		try{
 			this.socket = new DatagramSocket(5555);
 			
 			System.out.println("Server stared");
 
 			while(true){
-				//receber pacotes
-				socket.receive(packet);
-				String info = new String(packet.getData(),0,packet.getLength());
-				System.out.println(info);
-
-				//sair do ciclo
-				if(info.equals("1")) break;
+				//receber package
+				this.socket.receive(packet);
+				PacoteMonitor pm = new PacoteMonitor(packet.getData());
 				
-				//registar servidor
-				ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1);
-				tab.setServerInfo(si);
+				if(!tab.contains(packet.getAddress())){
+					//registar servidor
+					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true);
+					tab.setServerInfo(si);
+				}
+				else if(pm.getNumPacote()!=-1){
+						//actualizar info do respectivo servidor
+						updateServerInfo(pm,packet.getAddress(),packet.getPort());
+						exist = true;
+				}
+
+				if(pm.getTipo().equals("available")) 
+					System.out.println(pm.getEndIP()+" - available");
+				else if(pm.getTipo().equals("1")) break;
+				else System.out.println(pm.getTipo());
 
 				//enviar pacoteMonitor
-				PacoteMonitor pm = new PacoteMonitor(1,"cenas",packet.getAddress(),packet.getPort());
-				byte[] buf = pm.converteByte();
-
+				PacoteMonitor pm2;
+				if(exist){
+					pm2 = new PacoteMonitor(pm.getNumPacote()+1,"cenas",packet.getAddress(),packet.getPort());
+				}
+				else {
+					pm2 = new PacoteMonitor(1,"cenas",packet.getAddress(),packet.getPort());
+				}	
+				byte[] buf = pm2.converteByte();
 				DatagramPacket out = new DatagramPacket(buf, buf.length, packet.getAddress(), packet.getPort());
 				socket.send(out);
-
-				//receber pacoteMonitor
-				this.socket.receive(packet);
-				
-				PacoteMonitor pm2 = new PacoteMonitor(packet.getData());
-
-				//actualizar info do respectivo servidor
-				updateServerInfo(pm2,packet.getAddress(),packet.getPort());
 			}
-
 			//print das infos de cada servidor
 			print();
 
