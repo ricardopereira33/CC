@@ -10,7 +10,8 @@ public class RPThreadRead extends Thread {
 	private Tabela tab;
 
 
-	public RPThreadRead (Tabela tab){
+	public RPThreadRead (Tabela tab, DatagramSocket socket){
+		this.socket = socket;
 		this.tab = tab;
 	}
 
@@ -39,7 +40,7 @@ public class RPThreadRead extends Thread {
 				System.out.println("Endereço: " + si.getEndIp() +
 						 "\nPorta: " + si.getPort() +
 						 "\nRTT: "+ si.getRtt() + 
-					         "\nTaxa: " + si.getTaxPacLost() +
+					     "\nTaxa: " + si.getTaxPacLost() +
 						 "\nNumCont: " + si.getNumConnect() );
 			}
 	}
@@ -48,7 +49,6 @@ public class RPThreadRead extends Thread {
 		byte[] buffer = new byte[512];	
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		try{
-			this.socket = new DatagramSocket(5555);
 			
 			System.out.println("Server stared");
 

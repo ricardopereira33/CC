@@ -12,7 +12,8 @@ public class RPThreadWrite extends Thread {
 	private Tabela tab;
 
 
-	public RPThreadWrite (Tabela tab){
+	public RPThreadWrite (Tabela tab, DatagramSocket socket){
+		this.socket = socket;
 		this.tab = tab;
 	}
 
@@ -21,8 +22,6 @@ public class RPThreadWrite extends Thread {
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		boolean exist = false;
 		try{
-			this.socket = new DatagramSocket(5555);
-			
 			System.out.println("Server stared");
 
 			while(true){

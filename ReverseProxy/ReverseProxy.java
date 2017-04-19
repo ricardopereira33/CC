@@ -12,8 +12,9 @@ public class ReverseProxy{
 		try{
 			//iniciar thread de monitorizacao dos servidores
 			Tabela tab = new Tabela();
-			RPThreadWrite tw = new RPThreadWrite(tab);
-			RPThreadRead tr = new RPThreadRead(tab);
+			DatagramSocket ds = new DatagramSocket(5555);
+			RPThreadWrite tw = new RPThreadWrite(tab,ds);
+			RPThreadRead tr = new RPThreadRead(tab,ds);
 			tw.start();
 			tr.start();
 
