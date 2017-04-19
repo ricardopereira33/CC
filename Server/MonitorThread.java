@@ -8,9 +8,11 @@ public class MonitorThread extends Thread{
 	private ServerStatus ss;
 	private int time; //segundos
 
-	public MonitorThread(ServerStatus ss, int time){
+	public MonitorThread(ServerStatus ss, int time, DatagramSocket socket){
 		this.port=5555;
 		this.ss = ss;
+		this.time = time;
+		this.socket = socket;
 	}
 
 	public void run (){
@@ -20,7 +22,6 @@ public class MonitorThread extends Thread{
 		int i =0;
 		try{
 			addr = InetAddress.getByName("10.0.2.10");
-			this.socket = new DatagramSocket(port);
 
 			while(true){
 				if(ss.getDisp()){

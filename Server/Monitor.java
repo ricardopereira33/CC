@@ -6,11 +6,13 @@ public class Monitor extends Thread{
 	private int port;
 	private InetAddress addr;
 	private ServerStatus ss;
+	private int time;
 	private MonitorThread mt;
 	
 	public Monitor(ServerStatus ss, int time){
 		this.port = 5555;
-		this.mt = new MonitorThread(ss,time);
+		this.ss = ss;
+		this.time = time;
 	}
 
 	public void run (){
@@ -22,6 +24,7 @@ public class Monitor extends Thread{
 			addr = InetAddress.getByName("10.0.2.10");
 			this.socket = new DatagramSocket(port);
 			System.out.println("Monitor stared");
+			mt = new MonitorThread(ss,time,socket);
 			mt.start();
 
 			while(true){
@@ -48,7 +51,7 @@ public class Monitor extends Thread{
 			}
 		}
 		catch(Exception e){
-			System.out.println("Erro");
+			System.out.println("ErroNN");
 		}
 	}
 }
