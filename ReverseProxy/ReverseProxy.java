@@ -12,10 +12,13 @@ public class ReverseProxy{
 		try{
 			//iniciar thread de monitorizacao dos servidores
 			Tabela tab = new Tabela();
-			RPThread t = new RPThread(tab);
-			t.start();
+			RPThreadWrite tw = new RPThreadWrite(tab);
+			RPThreadRead tr = new RPThreadRead(tab);
+			tw.start();
+			tr.start();
 
-			t.join();
+			tw.join();
+			tr.join();
 
 			//ligar ligacoes TCP
 			/*server = new ServerSocket(80);

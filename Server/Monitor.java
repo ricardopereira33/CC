@@ -24,7 +24,10 @@ public class Monitor extends Thread{
 			addr = InetAddress.getByName("10.0.2.10");
 			this.socket = new DatagramSocket(port);
 			System.out.println("Monitor stared");
+			
 			mt = new MonitorThread(ss,time,socket);
+			this.mt = new MonitorThread(ss,time,socket);
+			
 			mt.start();
 
 			while(true){

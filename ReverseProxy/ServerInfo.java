@@ -10,61 +10,71 @@ public class ServerInfo implements Serializable{
 	private float taxPacLost;
 	private int numConnect;
     private boolean available;
+    private int numPacote;
 
-	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available){
+	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote){
 	   this.endIP = endIP;
        this.port = port;
        this.rtt = rtt;
        this.taxPacLost = taxPacLost;
        this.numConnect = numConnect;
        this.available = available;
+       this.numPacote = numPacote;
 	}
 
-    public InetAddress getEndIp(){
+    public synchronized InetAddress getEndIp(){
         return endIP;
     }
 
-    public void setEndIp(InetAddress endIP){
+    public synchronized void setEndIp(InetAddress endIP){
         this.endIP = endIP;
     }
 
-    public int getPort(){
+    public synchronized int getPort(){
         return port;
     }
 
-    public void setPort(int port){
+    public synchronized void setPort(int port){
         this.port = port;
     }
 
-    public float getRtt(){
+    public synchronized float getRtt(){
         return rtt;
     }
 
-    public void setRtt(float rtt){
+    public synchronized void setRtt(float rtt){
         this.rtt = rtt;
     }
 
-    public float getTaxPacLost(){
+    public synchronized float getTaxPacLost(){
         return taxPacLost;
     }
 
-    public void setTaxPacLost(float taxPacLost){
+    public synchronized void setTaxPacLost(float taxPacLost){
         this.taxPacLost = taxPacLost;
     }
 
-    public int getNumConnect(){
+    public synchronized int getNumConnect(){
         return numConnect;
     }
 
-    public void setNumConnect(int numConnect){
+    public synchronized void setNumConnect(int numConnect){
         this.numConnect = numConnect;
     }
 
-    public boolean getAvailable(){
+    public synchronized boolean getAvailable(){
         return available;
     }
 
-    public void setAvailable(boolean available){
+    public synchronized void setAvailable(boolean available){
         this.available = available;
+    }
+
+    public synchronized int getNumPacote(){
+        return this.numPacote;  
+    }
+
+    public synchronized void setNumPacote(int numPacote){
+        this.numPacote = numPacote;
     }
 }
