@@ -70,7 +70,8 @@ public class RPThreadRead extends Thread {
 				if(pm.getTipo().equals("available")) 
 					System.out.println(pm.getEndIP()+" - available");
 				else if(pm.getTipo().equals("1")) break;
-				else System.out.println(pm.getTipo());
+
+				print();
 			}
 			//print das infos de cada servidor
 			print();

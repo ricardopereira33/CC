@@ -44,7 +44,7 @@ public class Monitor extends Thread{
 				if(msg.equals("69")) ss.setDisp(false);
 
 				//enviar pacoteMonitor
-				PacoteMonitor pm2 = new PacoteMonitor(1,msg,packet.getAddress(),packet.getPort());
+				PacoteMonitor pm2 = new PacoteMonitor(pm.getNumPacote(),msg,packet.getAddress(),packet.getPort());
 				pm2.setTempSaida(pm.getTempSaida());
 				byte[] buf = pm2.converteByte();
 				
