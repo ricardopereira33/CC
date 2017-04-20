@@ -37,9 +37,7 @@ public class Monitor extends Thread{
 
 				pm.print();
 				
-				//enviar algo escrito do teclado
-				BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-				String msg = stdin.readLine();
+				String msg = "Probing";
 
 				if(msg.equals("69")) ss.setDisp(false);
 
