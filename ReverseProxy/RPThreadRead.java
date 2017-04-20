@@ -20,13 +20,13 @@ public class RPThreadRead extends Thread {
 		float alfa = 0.125f;
 		long time = System.currentTimeMillis();
 
+		if(si.getNumPacote() == pm.getNumPacote())
+			si.setNumPacote(si.getNumPacote()+1);
+		else si.addFails(pm.getNumPacote() - si.getNumPacote()); 
+
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
 
 		si.setRtt(newRtt);
-
-		//verificar o numero aqui para ver as falhas
-
-		si.setNumPacote(si.getNumPacote()+1);
 	}	
 
 	private void print(){
