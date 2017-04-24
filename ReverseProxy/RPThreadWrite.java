@@ -32,7 +32,7 @@ public class RPThreadWrite extends Thread {
 
 				for(ServerInfo si : lista){
 
-					pm = new PacoteMonitor(si.getNumPacote(),"cenas",si.getEndIp(),si.getPort());
+					pm = new PacoteMonitor(si.getNumPacote()+1,"cenas",si.getEndIp(),si.getPort());
 
 					byte[] buf = pm.converteByte();
 					DatagramPacket out = new DatagramPacket(buf, buf.length, si.getEndIp(),si.getPort());
@@ -43,7 +43,7 @@ public class RPThreadWrite extends Thread {
 			}
 		}
 		catch(Exception e){
-			System.out.println("Erro");
+			System.out.println("Erro44");
 		}
 	}	
 }

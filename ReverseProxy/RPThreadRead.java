@@ -59,7 +59,7 @@ public class RPThreadRead extends Thread {
 				
 				if(!tab.contains(packet.getAddress())){
 					//registar servidor
-					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true,0);
+					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true,1);
 					tab.setServerInfo(si);
 				}
 				else if(pm.getNumPacote()!=-1){
@@ -78,7 +78,7 @@ public class RPThreadRead extends Thread {
 
 		}
 		catch(Exception e){
-			System.out.println("Erro");
+			System.out.println(e.getMessage());
 		}
 	}	
 }
