@@ -22,7 +22,10 @@ public class RPThreadRead extends Thread {
 
 		if(si.getNumPacoteCheck() == pm.getNumPacote())
 			si.setNumPacoteCheck(si.getNumPacoteCheck()+1);
-		else si.addFails(pm.getNumPacote() - si.getNumPacoteCheck()); 
+		else{ 
+			System.out.println(pm.getNumPacote()+"|-|"+si.getNumPacoteCheck())
+			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck()); 
+		}
 
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
 
