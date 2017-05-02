@@ -12,6 +12,7 @@ public class ServerInfo implements Serializable{
     private boolean available;
     private int numPacote;
     private int fails;
+    private int numPacoteCheck;
 
 	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote, int numPacoteCheck){
 	   this.endIP = endIP;
@@ -27,7 +28,8 @@ public class ServerInfo implements Serializable{
 
     public synchronized void addFails(int dif){
         this.fails+=dif;
-        this.taxPacLost = (float) (this.fails/this.numPacote)*100;
+       	System.out.println(this.fails+"-"+this.numPacote);
+	this.taxPacLost =  ((float)this.fails/this.numPacote)*100;
     }
 
     public synchronized InetAddress getEndIp(){

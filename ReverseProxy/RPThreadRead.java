@@ -21,7 +21,7 @@ public class RPThreadRead extends Thread {
 		long time = System.currentTimeMillis();
 
 		if(si.getNumPacoteCheck() == pm.getNumPacote())
-			si.setNumPacoteCheck(si.getNumPacote()+1);
+			si.setNumPacoteCheck(si.getNumPacoteCheck()+1);
 		else si.addFails(pm.getNumPacote() - si.getNumPacoteCheck()); 
 
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
