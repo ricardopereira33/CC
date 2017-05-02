@@ -12,6 +12,7 @@ public class ServerInfo implements Serializable{
     private boolean available;
     private int numPacote;
     private int fails;
+    private int numPacoteCheck;
 
 	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote, int numPacoteCheck){
 	   this.endIP = endIP;
