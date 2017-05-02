@@ -39,7 +39,7 @@ public class RPThreadWrite extends Thread {
 					socket.send(out);
 	
 				}
-				Thread.sleep(3*1000);
+				Thread.sleep(2*1000);
 			}
 		}
 		catch(Exception e){

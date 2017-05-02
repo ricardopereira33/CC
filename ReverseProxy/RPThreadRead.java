@@ -20,9 +20,9 @@ public class RPThreadRead extends Thread {
 		float alfa = 0.125f;
 		long time = System.currentTimeMillis();
 
-		if(si.getNumPacote() == pm.getNumPacote())
-			si.setNumPacote(si.getNumPacote()+1);
-		else si.addFails(pm.getNumPacote() - si.getNumPacote()); 
+		if(si.getNumPacoteCheck() == pm.getNumPacote())
+			si.setNumPacoteCheck(si.getNumPacote()+1);
+		else si.addFails(pm.getNumPacote() - si.getNumPacoteCheck()); 
 
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
 
@@ -59,7 +59,7 @@ public class RPThreadRead extends Thread {
 				
 				if(!tab.contains(packet.getAddress())){
 					//registar servidor
-					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true,1);
+					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true,1,1);
 					tab.setServerInfo(si);
 				}
 				else if(pm.getNumPacote()!=-1){

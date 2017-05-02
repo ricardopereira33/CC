@@ -7,7 +7,7 @@ public class Server{
 		try{
 			ServerStatus ss = new ServerStatus();
 			//iniciar o monitor do Servidor
-			Monitor m = new Monitor(ss,3);
+			Monitor m = new Monitor(ss,2);
 			m.start();
 
 			//Faz seu trabalho

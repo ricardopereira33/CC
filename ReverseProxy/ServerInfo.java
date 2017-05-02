@@ -13,7 +13,7 @@ public class ServerInfo implements Serializable{
     private int numPacote;
     private int fails;
 
-	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote){
+	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote, int numPacoteCheck){
 	   this.endIP = endIP;
        this.port = port;
        this.rtt = rtt;
@@ -21,6 +21,7 @@ public class ServerInfo implements Serializable{
        this.numConnect = numConnect;
        this.available = available;
        this.numPacote = numPacote;
+       this.numPacoteCheck = numPacoteCheck;
        this.fails = 0;
 	}
 
@@ -78,10 +79,20 @@ public class ServerInfo implements Serializable{
     }
 
     public synchronized int getNumPacote(){
-        return this.numPacote;  
+        int aux = this.numPacote;
+        this.numPacote++;
+        return aux;  
     }
 
     public synchronized void setNumPacote(int numPacote){
         this.numPacote = numPacote;
+    }
+
+    public synchronized int getNumPacoteCheck(){
+        return this.numPacoteCheck;  
+    }
+
+    public synchronized void setNumPacoteCheck(int numPacote){
+        this.numPacoteCheck = numPacoteCheck;
     }
 }
