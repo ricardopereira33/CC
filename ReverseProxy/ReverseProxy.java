@@ -31,7 +31,7 @@ public class ReverseProxy{
 			server.close();*/
 		}
 		catch(Exception e){
-			System.out.println("Erro");
+			System.out.println("Erro11");
 		}	
 	}
 }

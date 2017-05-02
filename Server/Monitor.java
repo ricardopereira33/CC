@@ -39,8 +39,6 @@ public class Monitor extends Thread{
 				
 				String msg = "Probing";
 
-				if(msg.equals("69")) ss.setDisp(false);
-
 				//enviar pacoteMonitor
 				PacoteMonitor pm2 = new PacoteMonitor(pm.getNumPacote(),msg,packet.getAddress(),packet.getPort());
 				pm2.setTempSaida(pm.getTempSaida());

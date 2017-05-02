@@ -26,7 +26,7 @@ public class ServerInfo implements Serializable{
 
     public synchronized void addFails(int dif){
         this.fails+=dif;
-        this.taxPacLost = (this.fails/this.numPacote)*100;
+        this.taxPacLost = (float) (this.fails/this.numPacote)*100;
     }
 
     public synchronized InetAddress getEndIp(){

@@ -43,7 +43,7 @@ public class RPThreadWrite extends Thread {
 			}
 		}
 		catch(Exception e){
-			System.out.println("Erro");
+			System.out.println("Erro44");
 		}
 	}	
 }

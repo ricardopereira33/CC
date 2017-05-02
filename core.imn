@@ -87,6 +87,7 @@ link l2 {
 }
 
 link l3 {
+    ber 10
     nodes {n4 n1}
     bandwidth 0
 }
