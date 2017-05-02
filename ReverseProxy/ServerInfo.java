@@ -28,8 +28,9 @@ public class ServerInfo implements Serializable{
 
     public synchronized void addFails(int dif){
         this.fails+=dif;
+        this.numPacoteCheck++;
         System.out.println(this.fails+"-"+this.numPacote);
-	    this.taxPacLost =  ((float)this.fails/this.numPacote)*100;
+	    this.taxPacLost = ((float)this.fails/this.numPacote)*100;
     }
 
     public synchronized InetAddress getEndIp(){
