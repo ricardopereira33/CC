@@ -32,14 +32,14 @@ public class RPThreadWrite extends Thread {
 
 				for(ServerInfo si : lista){
 
-					pm = new PacoteMonitor(si.getNumPacote(),"cenas",si.getEndIp(),si.getPort());
+					pm = new PacoteMonitor(si.getNumPacote(),"Probing",si.getEndIp(),si.getPort());
 
 					byte[] buf = pm.converteByte();
 					DatagramPacket out = new DatagramPacket(buf, buf.length, si.getEndIp(),si.getPort());
 					socket.send(out);
-
-					Thread.sleep(3*1000);
+	
 				}
+				Thread.sleep(3*1000);
 			}
 		}
 		catch(Exception e){
