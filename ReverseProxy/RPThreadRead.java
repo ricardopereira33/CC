@@ -25,8 +25,6 @@ public class RPThreadRead extends Thread {
 		else{ 
 			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck(),pm.getNumPacote()); 
 		}
-		System.out.println(si.getNumPacoteCheck()+"|-|"+pm.getNumPacote());
-
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
 
 		si.setRtt(newRtt);
@@ -55,8 +53,8 @@ public class RPThreadRead extends Thread {
 		try{
 			
 			System.out.println("RPThreadRead stared");
-			//while(true){
-			while(i<30){
+			while(true){
+			//while(i<30){
 				//receber package
 				this.socket.receive(packet);
 				PacoteMonitor pm = new PacoteMonitor(packet.getData());

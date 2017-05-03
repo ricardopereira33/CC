@@ -35,7 +35,7 @@ public class Monitor extends Thread{
 				this.socket.receive(packet);
 				PacoteMonitor pm = new PacoteMonitor(packet.getData());
 
-				pm.print();
+				//pm.print();
 				
 				String msg = "Probing";
 

@@ -24,6 +24,7 @@ public class ReverseProxy{
 			server = new ServerSocket(80);
 
 			while((c = server.accept())!=null){
+				System.out.println("ola");
 				RPThreadClient t = new RPThreadClient(tab,c);
 				t.start();
 			}
