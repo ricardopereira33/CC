@@ -50,7 +50,7 @@ public class Monitor extends Thread{
 			}
 		}
 		catch(Exception e){
-			System.out.println("ErroNN");
+			System.out.println(e.getMessage());
 		}
 	}
 }

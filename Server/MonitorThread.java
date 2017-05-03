@@ -40,7 +40,7 @@ public class MonitorThread extends Thread{
 			}
 		}
 		catch(Exception e){
-			System.out.println("Erro");
+			System.out.println(e.getMessage());
 		}
 	}
 }

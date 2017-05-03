@@ -34,7 +34,7 @@ public class RPThreadClient extends Thread {
 				byte[] data;
 				data = null;
 				data = new byte[4096];
-				while((isClient.read(data)) != -1){
+				while( (isClient.read(data)) != -1){
 					
 					//receber info do cliente e enviar para o servidor
 					//isClient.read(data);
