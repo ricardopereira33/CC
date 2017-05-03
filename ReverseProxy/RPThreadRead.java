@@ -70,8 +70,6 @@ public class RPThreadRead extends Thread {
 				}
 				i++;
 			}
-			//print das infos de cada servidor
-			print();
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
