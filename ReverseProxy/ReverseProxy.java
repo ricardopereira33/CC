@@ -21,7 +21,8 @@ public class ReverseProxy{
 			tr.start();
 
 			//ligacoes TCP
-			server = new ServerSocket(80);
+			InetAddress addr = InetAddress.getByName("10.0.2.10");
+			server = new ServerSocket(80,30,addr);
 
 			while((c = server.accept())!=null){
 				System.out.println("ola");
