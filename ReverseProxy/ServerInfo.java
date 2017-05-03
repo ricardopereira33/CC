@@ -26,10 +26,10 @@ public class ServerInfo implements Serializable{
        this.fails = 0;
 	}
 
-    public synchronized void addFails(int dif){
+    public synchronized void addFails(int dif, int numPacote){
         this.fails+=dif;
-        System.out.println(this.fails+"-"+this.numPacote);
-	    this.taxPacLost =  ((float)this.fails/this.numPacote)*100;
+        this.numPacoteCheck=numPacote+1;
+	    this.taxPacLost = ((float)this.fails/this.numPacote)*100;
     }
 
     public synchronized InetAddress getEndIp(){
@@ -94,7 +94,7 @@ public class ServerInfo implements Serializable{
         return this.numPacoteCheck;  
     }
 
-    public synchronized void setNumPacoteCheck(int numPacote){
+    public synchronized void setNumPacoteCheck(int numPacoteCheck){
         this.numPacoteCheck = numPacoteCheck;
     }
 }

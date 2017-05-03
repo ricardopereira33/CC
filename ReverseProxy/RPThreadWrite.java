@@ -23,23 +23,21 @@ public class RPThreadWrite extends Thread {
 		boolean exist = false;
 		try{
 			System.out.println("Server stared");
+			ArrayList<ServerInfo> lista;
 
 			while(true){
 				//enviar pacoteMonitor
 				PacoteMonitor pm;
-
-				ArrayList<ServerInfo> lista = tab.getList();
+				lista = tab.getList();
 
 				for(ServerInfo si : lista){
-
 					pm = new PacoteMonitor(si.getNumPacote(),"Probing",si.getEndIp(),si.getPort());
 
 					byte[] buf = pm.converteByte();
 					DatagramPacket out = new DatagramPacket(buf, buf.length, si.getEndIp(),si.getPort());
 					socket.send(out);
-	
 				}
-				Thread.sleep(2*1000);
+				Thread.sleep(3*1000);
 			}
 		}
 		catch(Exception e){

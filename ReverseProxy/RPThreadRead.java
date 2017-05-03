@@ -23,9 +23,9 @@ public class RPThreadRead extends Thread {
 		if(si.getNumPacoteCheck() == pm.getNumPacote())
 			si.setNumPacoteCheck(si.getNumPacoteCheck()+1);
 		else{ 
-			System.out.println(pm.getNumPacote()+"|-|"+si.getNumPacoteCheck());
-			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck()); 
+			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck(),pm.getNumPacote()); 
 		}
+		System.out.println(si.getNumPacoteCheck()+"|-|"+pm.getNumPacote());
 
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
 
@@ -49,13 +49,14 @@ public class RPThreadRead extends Thread {
 	}
 
 	public void run(){
+		int i = 0;
 		byte[] buffer = new byte[512];	
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		try{
 			
 			System.out.println("Server stared");
-
-			while(true){
+			//while(true){
+			while(i<30){
 				//receber package
 				this.socket.receive(packet);
 				PacoteMonitor pm = new PacoteMonitor(packet.getData());
@@ -69,16 +70,10 @@ public class RPThreadRead extends Thread {
 						//actualizar info do respectivo servidor
 						updateServerInfo(pm,packet.getAddress(),packet.getPort());
 				}
-
-				if(pm.getTipo().equals("available")) 
-					System.out.println(packet.getAddress()+" - available");
-				else if(pm.getTipo().equals("1")) break;
-
-				print();
+				i++;
 			}
 			//print das infos de cada servidor
 			print();
-
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
