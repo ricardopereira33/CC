@@ -8,9 +8,11 @@ public class ReverseProxy{
 	Socket c = null;
 
 	public static void main(String args[]){
+		ServerSocket server;
+		Socket c = null;		
 		
 		try{
-			//iniciar thread de monitorizacao dos servidores
+			//iniciar threads de monitorizacao dos servidores
 			Tabela tab = new Tabela();
 			DatagramSocket ds = new DatagramSocket(5555);
 			RPThreadWrite tw = new RPThreadWrite(tab,ds);
@@ -18,20 +20,20 @@ public class ReverseProxy{
 			tw.start();
 			tr.start();
 
-			tw.join();
-			tr.join();
+			//ligacoes TCP
+			server = new ServerSocket(80);
 
-			//ligar ligacoes TCP
-			/*server = new ServerSocket(80);
-
-			while((c = server.accpet())!=null){
-				RPThread t = new RPThread(c);
+			while((c = server.accept())!=null){
+				RPThreadClient t = new RPThreadClient(tab,c);
 				t.start();
 			}
-			server.close();*/
+
+			tw.join();
+			tr.join();
+			server.close();
 		}
 		catch(Exception e){
-			System.out.println("Erro11");
+			System.out.println("Erro");
 		}	
 	}
 }

@@ -22,7 +22,7 @@ public class RPThreadWrite extends Thread {
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		boolean exist = false;
 		try{
-			System.out.println("Server stared");
+			System.out.println("RPThreadWrite stared");
 			ArrayList<ServerInfo> lista;
 
 			while(true){

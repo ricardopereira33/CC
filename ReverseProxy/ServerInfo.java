@@ -13,6 +13,7 @@ public class ServerInfo implements Serializable{
     private int numPacote;
     private int fails;
     private int numPacoteCheck;
+    private float media;
 
 	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote, int numPacoteCheck){
 	   this.endIP = endIP;
@@ -26,10 +27,15 @@ public class ServerInfo implements Serializable{
        this.fails = 0;
 	}
 
+    public synchronized void update(){
+        this.media = ((float) this.numConnect+this.taxPacLost+this.rtt)/3;
+    }
+
     public synchronized void addFails(int dif, int numPacote){
         this.fails+=dif;
         this.numPacoteCheck=numPacote+1;
 	    this.taxPacLost = ((float)this.fails/this.numPacote)*100;
+        this.update();
     }
 
     public synchronized InetAddress getEndIp(){
@@ -54,6 +60,7 @@ public class ServerInfo implements Serializable{
 
     public synchronized void setRtt(float rtt){
         this.rtt = rtt;
+        this.update();
     }
 
     public synchronized float getTaxPacLost(){
@@ -64,12 +71,17 @@ public class ServerInfo implements Serializable{
         this.taxPacLost = taxPacLost;
     }
 
+    public synchronized void incTCPConect(){
+        this.numConnect++;
+    }
+
     public synchronized int getNumConnect(){
         return numConnect;
     }
 
     public synchronized void setNumConnect(int numConnect){
         this.numConnect = numConnect;
+        this.update();
     }
 
     public synchronized boolean getAvailable(){
@@ -96,5 +108,13 @@ public class ServerInfo implements Serializable{
 
     public synchronized void setNumPacoteCheck(int numPacoteCheck){
         this.numPacoteCheck = numPacoteCheck;
+    }
+
+    public synchronized float getMedia(){
+        return this.media;
+    }
+
+    public synchronized void setMedia(float media){
+        this.media = media;
     }
 }

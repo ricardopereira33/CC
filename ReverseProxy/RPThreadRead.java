@@ -54,7 +54,7 @@ public class RPThreadRead extends Thread {
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		try{
 			
-			System.out.println("Server stared");
+			System.out.println("RPThreadRead stared");
 			//while(true){
 			while(i<30){
 				//receber package

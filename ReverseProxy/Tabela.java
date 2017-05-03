@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Tabela{
 	private Map<InetAddress,ServerInfo> servers;
@@ -42,5 +43,34 @@ public class Tabela{
 		}
 
 		return lista;
+	}
+
+	/*
+	Media corresponde à media dos parametros:
+	->Numero de Conecçoes TCP
+	->RTT
+	->Taxa de pacotes falhados
+
+	Criterio de escolha é o serivdor com a MENOR MEDIA.
+	*/
+	public synchronized Socket chooseServer(){
+		Socket socket;
+		PriorityQueue<ServerInfo> minHeap = new PriorityQueue<>(servers.size(),new MyComparator());
+
+		for(Map.Entry<InetAddress, ServerInfo> entry : servers.entrySet()){
+			minHeap.add(entry.getValue());
+		}
+
+		ServerInfo si =  minHeap.poll();
+		Socket s = null;
+
+		try{
+			s = new Socket(si.getEndIp(),80);
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+
+		return s;
 	}
 }
