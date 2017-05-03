@@ -23,7 +23,7 @@ public class RPThreadRead extends Thread {
 		if(si.getNumPacoteCheck() == pm.getNumPacote())
 			si.setNumPacoteCheck(si.getNumPacoteCheck()+1);
 		else{ 
-			System.out.println(pm.getNumPacote()+"|-|"+si.getNumPacoteCheck())
+			System.out.println(pm.getNumPacote()+"|-|"+si.getNumPacoteCheck());
 			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck()); 
 		}
 
