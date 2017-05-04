@@ -19,13 +19,12 @@ public class ReverseProxy{
 			RPThreadRead tr = new RPThreadRead(tab,ds);
 			tw.start();
 			tr.start();
-			System.out.println("sim");
+
 			//ligacoes TCP
 			InetAddress addr = InetAddress.getByName("10.0.2.10");
 			server = new ServerSocket(80,30,addr);
 
-			while((c = server.accept())!=null){
-				System.out.println("ola");
+			while((c = server.accept()) != null){
 				RPThreadClient t = new RPThreadClient(tab,c);
 				t.start();
 			}
