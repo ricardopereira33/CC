@@ -33,7 +33,7 @@ public class RPThreadClient extends Thread {
 				OutputStream osServer = this.socketServer.getOutputStream();
 				byte[] data;
 				data = null;
-				data = new byte[4096];
+				data = new byte[512];
 				while( (isClient.read(data)) != -1){
 					
 					//receber info do cliente e enviar para o servidor
@@ -41,14 +41,15 @@ public class RPThreadClient extends Thread {
 					osServer.write(data);
 
 					data = null;
-					data = new byte[4096];
+					data = new byte[512];
 
 					//receber info do servidor e enviar para o cliente
-					isServer.read(data);
-					osClient.write(data);
+					while( (isServer.read(data)) != -1){
+						osClient.write(data);
+					}
 
 					data = null;
-					data = new byte[4096];
+					data = new byte[512];
 
 					//Flush dos outputs 
 					osServer.flush();
