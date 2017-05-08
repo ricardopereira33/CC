@@ -20,6 +20,7 @@ public class RPThreadRead extends Thread {
 		float alfa = 0.125f;
 		long time = System.currentTimeMillis();
 
+		System.out.println(si.getNumPacoteCheck()+"/-/" +pm.getNumPacote());
 		if(si.getNumPacoteCheck() == pm.getNumPacote())
 			si.setNumPacoteCheck(si.getNumPacoteCheck()+1);
 		else{ 

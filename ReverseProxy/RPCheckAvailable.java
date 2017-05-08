@@ -42,7 +42,7 @@ public class RPCheckAvailable extends Thread {
 					boolean status = si.getAvailable();
 					long timeServer = si.getLastCheck();
 
-					if( status && ((time - timeServer)*1000)>=15 ){
+					if( status && ((time - timeServer))>=15*1000 ){
 						si.setAvailable(false);
 					}
 				}
