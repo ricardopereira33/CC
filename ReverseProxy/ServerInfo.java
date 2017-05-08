@@ -14,14 +14,16 @@ public class ServerInfo implements Serializable{
     private int fails;
     private int numPacoteCheck;
     private float media;
+    private long lastCheck;
 
-	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote, int numPacoteCheck){
+	public ServerInfo(InetAddress endIP, int port, float rtt, float taxPacLost, int numConnect,boolean available, int numPacote, int numPacoteCheck, long lastCheck){
 	   this.endIP = endIP;
        this.port = port;
        this.rtt = rtt;
        this.taxPacLost = taxPacLost;
        this.numConnect = numConnect;
        this.available = available;
+       this.lastCheck = lastCheck;
        this.numPacote = numPacote;
        this.numPacoteCheck = numPacoteCheck;
        this.fails = 0;
@@ -116,5 +118,13 @@ public class ServerInfo implements Serializable{
 
     public synchronized void setMedia(float media){
         this.media = media;
+    }
+
+    public synchronized long getLastCheck(){
+        return this.lastCheck;
+    }
+
+    public synchronized void setLastCheck( long time ){
+        this.lastCheck = time;
     }
 }

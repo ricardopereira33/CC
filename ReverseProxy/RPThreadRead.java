@@ -32,44 +32,54 @@ public class RPThreadRead extends Thread {
 
 	private void print(){
 		Map<InetAddress,ServerInfo> lista = tab.lista();
-			for(Map.Entry<InetAddress,ServerInfo> entry: lista.entrySet()){
+		for(Map.Entry<InetAddress,ServerInfo> entry: lista.entrySet()){
 				
-				ServerInfo si = entry.getValue();
+			ServerInfo si = entry.getValue();
 
-				if(si==null) System.out.println("Cenas");
+			if(si==null) System.out.println("Cenas");
 	
-				System.out.println("Endereço: " + si.getEndIp() +
-						 "\nPorta: " + si.getPort() +
-						 "\nRTT: "+ si.getRtt() + 
-					     "\nTaxa: " + si.getTaxPacLost() +
-						 "\nNumCont: " + si.getNumConnect() );
+			System.out.println("Endereço: " + si.getEndIp() +
+						 	"\nPorta: " + si.getPort() +
+						 	"\nRTT: "+ si.getRtt() + 
+					     	"\nTaxa: " + si.getTaxPacLost() +
+						 	"\nNumCont: " + si.getNumConnect() + 
+						 	"\nAvailable: "+ si.getAvailable());
 			}
 	}
 
+	public void updateAvailable(InetAddress ip,long time){
+		ServerInfo si = this.tab.getServerInfo(ip);
+		si.setLastCheck(time);
+		si.setAvailable(true);
+	}
+
 	public void run(){
-		int i = 0;
 		byte[] buffer = new byte[512];	
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		try{
 			
 			System.out.println("RPThreadRead stared");
+			
 			while(true){
-			//while(i<30){
 				//receber package
 				this.socket.receive(packet);
 				PacoteMonitor pm = new PacoteMonitor(packet.getData());
 				
 				if(!tab.contains(packet.getAddress())){
 					//registar servidor
-					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true,1,1);
+					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true,1,1,System.currentTimeMillis());
 					tab.setServerInfo(si);
 				}
 				else if(pm.getNumPacote()!=-1){
 						//actualizar info do respectivo servidor
 						updateServerInfo(pm,packet.getAddress(),packet.getPort());
 				}
-				i++;
+				else {
+					//actualizar disponibilidade do servidor
+					updateAvailable(packet.getAddress(),System.currentTimeMillis());
+				}
 			}
+			
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
