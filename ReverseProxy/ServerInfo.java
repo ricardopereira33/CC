@@ -86,6 +86,16 @@ public class ServerInfo implements Serializable{
         this.update();
     }
 
+    public synchronized void incrNumConnect(){
+        this.numConnect++;
+        this.update();
+    }
+
+    public synchronized void decrNumConnect(){
+        this.numConnect--;
+        this.update();
+    }
+
     public synchronized boolean getAvailable(){
         return available;
     }

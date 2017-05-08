@@ -53,7 +53,7 @@ public class Tabela{
 
 	Criterio de escolha é o serivdor com a MENOR MEDIA.
 	*/
-	public synchronized Socket chooseServer(){
+	public synchronized ServerInfo chooseServer(){
 		Socket socket;
 		PriorityQueue<ServerInfo> minHeap = new PriorityQueue<>(servers.size(),new MyComparator());
 
@@ -62,15 +62,8 @@ public class Tabela{
 		}
 
 		ServerInfo si =  minHeap.poll();
-		Socket s = null;
+		si.incrNumConnect();
 
-		try{
-			s = new Socket(si.getEndIp(),80);
-		}
-		catch(Exception e){
-			System.out.println(e.getMessage());
-		}
-
-		return s;
+		return si;
 	}
 }

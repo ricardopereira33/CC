@@ -26,8 +26,10 @@ public class RPThreadClient extends Thread {
 			OutputStream osClient = this.socketClient.getOutputStream();
 
 			//escolher servidor
-			this.socketServer = tab.chooseServer(); 
-			
+			ServerInfo si = tab.chooseServer(); 
+
+			this.socketServer = new Socket(si.getEndIp(),80);
+
 			if(this.socketServer!=null){
 				InputStream isServer = this.socketServer.getInputStream();
 				OutputStream osServer = this.socketServer.getOutputStream();
@@ -68,6 +70,8 @@ public class RPThreadClient extends Thread {
 			osClient.close();
 			this.socketServer.close();
 			this.socketClient.close();
+
+			si.decrNumConnect();
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
