@@ -27,7 +27,7 @@ public class RPThreadClient extends Thread {
 
 			//escolher servidor
 			ServerInfo si = tab.chooseServer(); 
-
+			si.incrNumConnect();
 			this.socketServer = new Socket(si.getEndIp(),80);
 
 			if(this.socketServer!=null){

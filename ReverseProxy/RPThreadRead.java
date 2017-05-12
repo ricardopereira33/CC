@@ -68,7 +68,7 @@ public class RPThreadRead extends Thread {
 				
 				if(!tab.contains(packet.getAddress())){
 					//registar servidor
-					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 1,true,1,1,System.currentTimeMillis());
+					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 0,true,1,1,System.currentTimeMillis());
 					tab.setServerInfo(si);
 				}
 				else if(pm.getNumPacote()!=-1){

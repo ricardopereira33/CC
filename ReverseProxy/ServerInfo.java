@@ -73,10 +73,6 @@ public class ServerInfo implements Serializable{
         this.taxPacLost = taxPacLost;
     }
 
-    public synchronized void incTCPConect(){
-        this.numConnect++;
-    }
-
     public synchronized int getNumConnect(){
         return numConnect;
     }
