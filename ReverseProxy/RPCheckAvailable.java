@@ -42,11 +42,13 @@ public class RPCheckAvailable extends Thread {
 					boolean status = si.getAvailable();
 					long timeServer = si.getLastCheck();
 
+					//verifica se um dado servidor está disponivel (limite de 15 seg.)
 					if( status && ((time - timeServer))>=15*1000 ){
 						si.setAvailable(false);
 					}
 				}
 				print();
+				// espera 1 minuto
 				Thread.sleep(60*1000);
 			}
 		}

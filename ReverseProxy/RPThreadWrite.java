@@ -37,6 +37,7 @@ public class RPThreadWrite extends Thread {
 					DatagramPacket out = new DatagramPacket(buf, buf.length, si.getEndIp(),si.getPort());
 					socket.send(out);
 				}
+				//esperar 3 segundos
 				Thread.sleep(3*1000);
 			}
 		}

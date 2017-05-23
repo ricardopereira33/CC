@@ -26,7 +26,8 @@ public class Monitor extends Thread{
 			addr = InetAddress.getByName(this.address);
 			this.socket = new DatagramSocket(port);
 			System.out.println("Monitor stared");
-		
+			
+			//Thread que envia pacotes do tipo "Available"
 			this.mt = new MonitorThread(ss,time,socket,this.address);
 			
 			mt.start();

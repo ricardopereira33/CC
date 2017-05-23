@@ -15,17 +15,21 @@ public class RPThreadRead extends Thread {
 		this.tab = tab;
 	}
 
+	//actualizar informaçao do servidor
 	private void updateServerInfo(PacoteMonitor pm, InetAddress ip, int port){
 		ServerInfo si = this.tab.getServerInfo(ip);
 		float alfa = 0.125f;
 		long time = System.currentTimeMillis();
 
-		System.out.println(si.getNumPacoteCheck()+"/-/" +pm.getNumPacote());
+		//Verificar pacotes perdidos
+		//System.out.println(si.getNumPacoteCheck()+"/-/" +pm.getNumPacote());
 		if(si.getNumPacoteCheck() == pm.getNumPacote())
 			si.setNumPacoteCheck(si.getNumPacoteCheck()+1);
 		else{ 
 			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck(),pm.getNumPacote()); 
 		}
+
+		//calcular RTT
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
 
 		si.setRtt(newRtt);
