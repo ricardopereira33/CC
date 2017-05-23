@@ -8,7 +8,8 @@ public class Server{
 			ServerStatus server = new ServerStatus();
 			Socket c;
 			//iniciar o monitor do Servidor
-			Monitor m = new Monitor(server,5);
+			System.out.println(args[0]);
+			Monitor m = new Monitor(server,5,args[0]);
 			m.start();
 
 			m.join();

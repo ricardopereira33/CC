@@ -39,7 +39,8 @@ public class Tabela{
 		ArrayList<ServerInfo> lista = new ArrayList<>();
 
 		for(Map.Entry<InetAddress, ServerInfo> entry : servers.entrySet()){
-			lista.add(entry.getValue());
+			if(entry.getValue().getAvailable())
+				lista.add(entry.getValue());
 		}
 
 		return lista;
@@ -58,11 +59,11 @@ public class Tabela{
 		PriorityQueue<ServerInfo> minHeap = new PriorityQueue<>(servers.size(),new MyComparator());
 
 		for(Map.Entry<InetAddress, ServerInfo> entry : servers.entrySet()){
-			minHeap.add(entry.getValue());
+			if(entry.getValue().getAvailable())
+				minHeap.add(entry.getValue());
 		}
 
 		ServerInfo si =  minHeap.poll();
-		si.incrNumConnect();
 
 		return si;
 	}

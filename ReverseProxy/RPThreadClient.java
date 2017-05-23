@@ -18,16 +18,17 @@ public class RPThreadClient extends Thread {
 	}
 
 	public void run(){
+		//escolher servidor
+		ServerInfo si = tab.chooseServer(); 
+		si.incrNumConnect();
+
 		try{
 			System.out.println("RPThreadClient stared");
 
 			//Input e output do socket para um cliente
 			InputStream isClient = this.socketClient.getInputStream();
 			OutputStream osClient = this.socketClient.getOutputStream();
-
-			//escolher servidor
-			ServerInfo si = tab.chooseServer(); 
-			si.incrNumConnect();
+			
 			this.socketServer = new Socket(si.getEndIp(),80);
 
 			if(this.socketServer!=null){
@@ -70,11 +71,13 @@ public class RPThreadClient extends Thread {
 			osClient.close();
 			this.socketServer.close();
 			this.socketClient.close();
-
+			System.out.println("RPThreadClient finish");
 			si.decrNumConnect();
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
+			System.out.println("RPThreadClient finish");
+			si.decrNumConnect();
 		}
 	}	
 }

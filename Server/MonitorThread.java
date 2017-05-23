@@ -7,12 +7,14 @@ public class MonitorThread extends Thread{
 	private InetAddress addr;
 	private ServerStatus ss;
 	private int time; //segundos
+	private String address;
 
-	public MonitorThread(ServerStatus ss, int time, DatagramSocket socket){
+	public MonitorThread(ServerStatus ss, int time, DatagramSocket socket,String address){
 		this.port=5555;
 		this.ss = ss;
 		this.time = time;
 		this.socket = socket;
+		this.address = address;
 	}
 
 	public void run (){
@@ -21,7 +23,7 @@ public class MonitorThread extends Thread{
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		int i =0;
 		try{
-			addr = InetAddress.getByName("10.0.2.10");
+			addr = InetAddress.getByName(address);
 
 			while(true){
 				if(ss.getDisp()){
