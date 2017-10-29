@@ -22,32 +22,31 @@ public class RPThreadRead extends Thread {
 		long time = System.currentTimeMillis();
 
 		//Verificar pacotes perdidos
-		//System.out.println(si.getNumPacoteCheck()+"/-/" +pm.getNumPacote());
 		if(si.getNumPacoteCheck() == pm.getNumPacote())
 			si.setNumPacoteCheck(si.getNumPacoteCheck()+1);
-		else{ 
-			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck(),pm.getNumPacote()); 
+		else{
+			si.addFails(pm.getNumPacote() - si.getNumPacoteCheck(),pm.getNumPacote());
 		}
 
 		//calcular RTT
 		float newRtt = (float) ((1 - alfa)*si.getRtt() + alfa*( time - pm.getTempSaida()));
 
 		si.setRtt(newRtt);
-	}	
+	}
 
 	private void print(){
 		Map<InetAddress,ServerInfo> lista = tab.lista();
 		for(Map.Entry<InetAddress,ServerInfo> entry: lista.entrySet()){
-				
+
 			ServerInfo si = entry.getValue();
 
 			if(si==null) System.out.println("Cenas");
-	
+
 			System.out.println("Endereço: " + si.getEndIp() +
 						 	"\nPorta: " + si.getPort() +
-						 	"\nRTT: "+ si.getRtt() + 
+						 	"\nRTT: "+ si.getRtt() +
 					     	"\nTaxa: " + si.getTaxPacLost() +
-						 	"\nNumCont: " + si.getNumConnect() + 
+						 	"\nNumCont: " + si.getNumConnect() +
 						 	"\nAvailable: "+ si.getAvailable());
 			}
 	}
@@ -59,17 +58,17 @@ public class RPThreadRead extends Thread {
 	}
 
 	public void run(){
-		byte[] buffer = new byte[512];	
+		byte[] buffer = new byte[512];
 		DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 		try{
-			
-			System.out.println("RPThreadRead stared");
-			
+
+			System.out.println("RPThreadRead stared!!");
+
 			while(true){
 				//receber package
 				this.socket.receive(packet);
 				PacoteMonitor pm = new PacoteMonitor(packet.getData());
-				
+
 				if(!tab.contains(packet.getAddress())){
 					//registar servidor
 					ServerInfo si = new ServerInfo(packet.getAddress(), packet.getPort(), 0, 0, 0,true,1,1,System.currentTimeMillis());
@@ -84,10 +83,10 @@ public class RPThreadRead extends Thread {
 					updateAvailable(packet.getAddress(),System.currentTimeMillis());
 				}
 			}
-			
+
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-	}	
+	}
 }
